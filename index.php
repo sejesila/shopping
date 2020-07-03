@@ -1,5 +1,10 @@
 <?php
+require_once('php/createDb.php');
 require_once('./php/component.php');
+
+//create an instance of the createdb class
+$databse = new CreateDB("Shoppingdb","Products");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +22,11 @@ require_once('./php/component.php');
         <div class="row text-center py-5">
           
            <?php
-           component("Hp Laptop",43000,"./images/lapi.jpeg");
+           $result = $databse->getData();
+           while($row = mysqli_fetch_assoc($result))
+           {
+               component($row['product_name'],$row['product_price'],$row['product_image']);
+           }
            ?>
         </div>
     </div>
